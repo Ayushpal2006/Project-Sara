@@ -29,14 +29,13 @@ APP_MAPPINGS = {
     "notepad": "notepad",
     "calculator": "calc",
     "chrome": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-    "vlc": "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe",
+    "vlc": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\VideoLAN\\VLC media player.lnk",
     "command prompt": "cmd",
     "control panel": "control",
     "settings": "start ms-settings:",
     "paint": "mspaint",
-    "vs code": "C:\\Users\\gaura\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
-    "postman": "C:\\Users\\gaura\\AppData\\Local\\Postman\\Postman.exe",
-    "Jio shpare browser": "C:\\Users\\Gaurav\\AppData\\Local\\JIO\\JioSphere\\Application\\JioSphere.exe"
+    "vs code": "C:\\Users\\Dell\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code\\Visual Studio Code.lnk",
+    
 }
 
 # -------------------------
