@@ -3,6 +3,7 @@ import requests
 import logging
 from dotenv import load_dotenv
 from livekit.agents import function_tool  # ✅ Correct decorator
+from langchain.tools import tool
 
 load_dotenv()
 
@@ -10,23 +11,30 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def detect_city_by_ip() -> str:
+async def get_current_city():
     try:
-        logger.info("IP के ज़रिए शहर detect करने की कोशिश की जा रही है")
-        ip_info = requests.get("https://ipapi.co/json/").json()
-        city = ip_info.get("city")
-        if city:
-            logger.info(f"IP से शहर Detect किया गया: {city}")
-            return city
-        else:
-            logger.warning("City detect करने में विफल, default 'Delhi' इस्तेमाल किया जा रहा है।")
-            return "Delhi"
+        response = requests.get("https://ipinfo.io", timeout=5)
+        data = response.json()
+        return data.get("city", "Unknown")
     except Exception as e:
-        logger.error(f"IP से city detect करने में error आया: {e}")
-        return "Delhi"
+        return "Unknown"
 
-@function_tool
+@tool
 async def get_weather(city: str = "") -> str:
+
+    """
+    Gives current weather information for a given city.
+
+    Use this tool when the user asks about weather, rain, temperature, humidity, or wind.
+    If no city is given, detect city automatically.
+
+    Example prompts:
+    - "आज का मौसम कैसा है?"
+    - "Weather बताओ Bangalore का"
+    - "क्या बारिश होगी मुंबई में?"
+    """
+
+
     
     api_key = os.getenv("OPENWEATHER_API_KEY")
 
@@ -35,7 +43,7 @@ async def get_weather(city: str = "") -> str:
         return "Environment variables में OpenWeather API key नहीं मिली।"
 
     if not city:
-        city = detect_city_by_ip()
+        city = get_current_city()
 
     logger.info(f"City के लिए weather fetch किया जा रहा है।: {city}")
     url = "https://api.openweathermap.org/data/2.5/weather"

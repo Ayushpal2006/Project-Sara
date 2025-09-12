@@ -6,12 +6,6 @@ import asyncio
 from fuzzywuzzy import process
 
 try:
-    from livekit.agents import function_tool
-except ImportError:
-    def function_tool(func): 
-        return func
-
-try:
     import win32gui
     import win32con
 except ImportError:
@@ -22,6 +16,8 @@ try:
     import pygetwindow as gw
 except ImportError:
     gw = None
+
+from langchain.tools import tool
 
 # Setup encoding and logger
 sys.stdout.reconfigure(encoding='utf-8')
@@ -39,7 +35,8 @@ APP_MAPPINGS = {
     "settings": "start ms-settings:",
     "paint": "mspaint",
     "vs code": "C:\\Users\\gaura\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
-    "postman": "C:\\Users\\gaura\\AppData\\Local\\Postman\\Postman.exe"
+    "postman": "C:\\Users\\gaura\\AppData\\Local\\Postman\\Postman.exe",
+    "Jio shpare browser": "C:\\Users\\Gaurav\\AppData\\Local\\JIO\\JioSphere\\Application\\JioSphere.exe"
 }
 
 # -------------------------
@@ -126,8 +123,21 @@ async def delete_item(path):
         return f"❌ Delete नहीं हुआ।: {e}"
 
 # App control
-@function_tool
-async def open(app_title: str) -> str:
+@tool
+async def open_app(app_title: str) -> str:
+
+    """
+    open_app a desktop app like Notepad, Chrome, VLC, etc.
+
+    Use this tool when the user asks to launch an application on their computer.
+    Example prompts:
+    - "Notepad खोलो"
+    - "Chrome open करो"
+    - "VLC media player चलाओ"
+    - "Calculator launch करो"
+    """
+
+
     app_title = app_title.lower().strip()
     app_command = APP_MAPPINGS.get(app_title, app_title)
     try:
@@ -140,8 +150,21 @@ async def open(app_title: str) -> str:
     except Exception as e:
         return f"❌ {app_title} Launch नहीं हो पाया।: {e}"
 
-@function_tool
-async def close(window_title: str) -> str:
+@tool
+async def close_app(window_title: str) -> str:
+
+    """
+    Closes the applications window by its title.
+
+    Use this tool when the user wants to close any app or window on their desktop.
+    Example prompts:
+    - "Notepad बंद करो"
+    - "Close VLC"
+    - "Chrome की window बंद कर दो"
+    - "Calculator को बंद करो"
+    """
+
+
     if not win32gui:
         return "❌ win32gui"
 
@@ -154,8 +177,22 @@ async def close(window_title: str) -> str:
     return f"❌ Window बंद हो गई है।: {window_title}"
 
 # Jarvis command logic
-@function_tool
+@tool
 async def folder_file(command: str) -> str:
+
+    """
+    Handles folder and file actions like open, create, rename, or delete based on user command.
+
+    Use this tool when the user wants to manage folders or files using natural language.
+    Example prompts:
+    - "Projects folder बनाओ"
+    - "OldName को NewName में rename करो"
+    - "xyz.mp4 delete कर दो"
+    - "Music folder खोलो"
+    - "Resume.pdf चलाओ"
+    """
+
+
     folders_to_index = ["D:/"]
     index = await index_items(folders_to_index)
     command_lower = command.lower()
