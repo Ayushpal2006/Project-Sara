@@ -4,9 +4,9 @@ from livekit.agents import AgentSession, Agent, RoomInputOptions, ChatContext, C
 from livekit.plugins import google, noise_cancellation
 
 # Import your custom modules
-from Jarvis_prompts import instructions_prompt, Reply_prompts
+from Sora_prompts import instructions_prompt, Reply_prompts
 from memory_loop import MemoryExtractor
-from jarvis_reasoning import thinking_capability
+from Sora_reasoning import thinking_capability
 load_dotenv()
 
 

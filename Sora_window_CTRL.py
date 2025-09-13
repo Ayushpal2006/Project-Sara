@@ -177,7 +177,7 @@ async def close_app(window_title: str) -> str:
     win32gui.EnumWindows(enumHandler, None)
     return f"❌ Window बंद हो गई है।: {window_title}"
 
-# Jarvis command logic
+# Sora command logic
 @tool
 async def folder_file(command: str) -> str:
 

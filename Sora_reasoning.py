@@ -1,10 +1,10 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_react_agent, AgentExecutor
 from dotenv import load_dotenv
-from Jarvis_google_search import google_search, get_current_datetime
-from jarvis_get_whether import get_weather
-from Jarvis_window_CTRL import open_app, close_app, folder_file
-from Jarvis_file_opner import Play_file
+from Sora_google_search import google_search, get_current_datetime
+from Sora_get_whether import get_weather
+from Sora_window_CTRL import open_app, close_app, folder_file
+from Sora_file_opner import Play_file
 from keyboard_mouse_CTRL import (
     move_cursor_tool, mouse_click_tool, scroll_cursor_tool, 
     type_text_tool, press_key_tool, swipe_gesture_tool, 
