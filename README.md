@@ -110,7 +110,6 @@ python main.py
 ### ✅ Uses real async programming, not just sync code with async keyword
 ### ✅ Production-grade structure: separate modules, logging, error handling
 ### ✅ Scalable design — easy to plug in AI, web APIs, DBs
-### ✅ Perfect for showcasing on GitHub, resumes, or learning advanced Python
 
 # 🧑‍💻 Author
 ### Ayush Pal
