@@ -10,6 +10,7 @@ from Sora_reasoning import thinking_capability
 load_dotenv()
 
 
+
 class Assistant(Agent):
     def __init__(self, chat_ctx) -> None:
         super().__init__(chat_ctx = chat_ctx,
